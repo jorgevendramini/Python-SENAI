@@ -1,0 +1,161 @@
+candidatos = {}
+
+def menu_principal():
+
+    print("ELEIÇÕES 2023 - SENAI MORVAN FIGUEIREDO")
+    print("")
+    
+    while True:
+        print("1. Registro de Candidatos")
+        print("2. Votação")
+        print("3. Encerrar Programa")
+        
+        principal = input("Escolha uma opção:")
+        print("")
+            
+        match principal:
+            case "1":
+                menu_candidatos()
+                
+            case "2":
+                menu_votacao()
+
+            case "3":
+                fechar_programa()
+                break
+            
+            case _:
+                print("Digite uma opção válida!")
+
+def menu_candidatos():
+    print("""ELEIÇÕES 2023 - SENAI MORVAN FIGUEIREDO
+   **** CADASTRO DE CANDIDATOS: ****
+    """)
+    
+    print("1. Registrar Candidato")
+    print("2. Relatório de Candidatos disponíveis")
+    print("3. Voltar ao Menu Principal")
+    print("")
+
+    option_candidatos = input("Escolha uma opção:")
+    
+    match option_candidatos:
+        case "1":
+            registro_candidato()
+                
+        case "2":
+            relatorio()
+
+        case "3":
+            menu_principal()
+            
+        case _:
+            print("Digite uma opção válida!")
+    
+
+
+def menu_votacao():
+    print("""ELEIÇÕES 2023 - SENAI MORVAN FIGUEIREDO
+       **** OPÇÕES DE VOTAÇÃO: ****
+    """)
+    print("")
+
+    print("1. Iniciar Votação")
+    print("2. Relatório Final da Votação")
+    print("3. Voltar ao Menu Principal")
+    print("")
+
+    option_votacao = input("Escolha uma opção:")
+    print("")
+    
+    match option_votacao:
+        case "1":
+            iniciar_votacao()
+                
+        case "2":
+            relatorio_final()
+
+        case "3":
+            menu_principal()
+            
+        case _:
+            print("Digite uma opção válida!")
+
+
+def fechar_programa():
+    print("""ELEIÇÕES 2023 - SENAI MORVAN FIGUEIREDO
+**** PROGRAMA ENCERRADO COM SUCESSO ****
+    """)
+
+def registro_candidato():
+
+    nome = input("Nome do Candidato: ")
+    numero = input("Número: ")
+    partido = input("Partido:")
+    votos = 0
+    cadastrar_candidato(nome, numero, partido, votos)
+
+def cadastrar_candidato(nome, numero, partido, votos):
+
+    if numero not in [num for _, (num, _, _) in candidatos.items()]:
+        candidatos[nome] = (numero, partido, votos)
+        print("Candidato {} registrado com sucesso.\n".format(nome))
+    else:
+        print("Número para votação já escolhido")
+    continuar = input("Deseja continuar registrando? (Y/N)").upper()
+
+    if continuar == "Y":
+        registro_candidato()
+    elif continuar == "N":
+        print("Voltando ao menu principal.")
+    else:
+        print("Digite uma opção válida!")
+
+def relatorio():
+    for candidato, (numero, partido, votos) in candidatos.items():
+        print("Candidato: {} | Numero: {} | Partido: {}".format(candidato, numero, partido))
+    menu_candidatos()
+
+
+def iniciar_votacao():
+
+    number = 0
+
+    while True:
+        print("""ELEIÇÕES 2023 - SENAI MORVAN FIGUEIREDO
+        **** VOTE CONSCIENTE ****
+        **** ESCOLHA SEU CANDIDATO: ****
+    """)
+        print("")
+
+        #print("Números de candidatos disponíveis:")
+        #for candidato, (numero, partido) in candidatos.items():
+         #   print("Número: {}".format(numero))
+
+        print("")
+        number = str(input("Digite o número de seu candidato:"))
+
+        if number == "9876543210":
+            break
+        candidate_found = False
+        for candidato, (numero, partido, votos) in candidatos.items():
+            if str(number) == numero:
+                print(f"Você vai vota no candidato: {candidato}")
+                continuar = input("Confirmar votação? (Y/N)").upper()
+                if continuar == "Y":
+                    candidatos[candidato] = (numero, partido, votos + 1)
+                    print(f"Voto adicionado para o candidato: {candidato}")
+                elif continuar == "N":
+                    print("Votação anulada.")
+                    print("Reiniciando sistema.")
+                else:
+                    print("Digite uma opção válida!")
+                candidate_found = True
+        if not candidate_found:
+            print("Candidato não encontrado.")
+
+def relatorio_final():
+    for candidato, (numero, partido, votos) in candidatos.items():
+        print("Candidato: {} | Numero: {} | Partido: {} | Votos: {}".format(candidato, numero, partido, votos))
+
+menu_principal()
