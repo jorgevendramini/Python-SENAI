@@ -13,3 +13,34 @@ while user != "":
 count = Counter(palavras)
 print(count)
 
+#exercicio 6
+
+from statistics import mean
+
+num_str_input = input("Digite uma lista de números separados por vírgula:")
+
+num_str_list = num_str_input.split(',')
+
+#print(num_str_list)
+
+numbers = []
+
+for num_str in num_str_list:
+    try:
+        num = int(num_str) #para integers
+    except ValueError:
+        try:
+            num = float(num_str) #para flutuantes
+        except ValueError:
+            print(f"o valor {num_str} não é um valor válido")
+            continue
+    numbers.append(num)
+    
+#print(numbers)
+
+try: 
+    media = mean(numbers)
+    print(f"A média dos números {numbers} é {media}")
+except ValueError:
+    print("Números digitados são inválidos para fazer o cálculo da média aritmética deles.")
+
