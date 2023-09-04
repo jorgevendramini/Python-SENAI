@@ -4,7 +4,7 @@ from collections import Counter
 
 palavras = []
 
-user = input("Digite uma palavra:")
+user = input("Digite um número: (não preencha para finalizar)")
 
 while user != "":
     palavras.append(user)
