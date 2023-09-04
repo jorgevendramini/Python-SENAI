@@ -44,3 +44,15 @@ try:
 except ValueError:
     print("Números digitados são inválidos para fazer o cálculo da média aritmética deles.")
 
+#Star of 7
+
+import tkinter as tk
+from tkinter import messagebox
+
+root = tk.Tk()
+root.withdraw()
+
+message = messagebox.showinfo(title="Hi", message="Hello World!")
+
+root.mainloop()
+
